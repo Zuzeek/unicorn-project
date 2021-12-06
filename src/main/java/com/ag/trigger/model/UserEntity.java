@@ -1,18 +1,30 @@
 package com.ag.trigger.model;
 
-import com.ag.trigger.model.PersonEntity;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email"),
+                @UniqueConstraint(columnNames = "telephone")
+        })
 @Data
 public class UserEntity extends PersonEntity {
 
+    @Column(name = "username")
+    @NotEmpty
+    private String username;
+
+    @Column(name = "password")
+    @NotEmpty
+    private String password;
+    
     @Column(name = "email")
     @NotEmpty
     private String email;
@@ -21,5 +33,18 @@ public class UserEntity extends PersonEntity {
     @NotEmpty
     private String telephone;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> roles = new HashSet<>();
 
+    public UserEntity() {}
+
+    public UserEntity(String username, String password, String email, String telephone) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.telephone = telephone;
+    }
 }
