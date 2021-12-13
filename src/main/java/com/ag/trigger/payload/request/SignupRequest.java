@@ -10,8 +10,9 @@ import java.util.Set;
 @Data
 public class SignupRequest {
 
-    @NotBlank
-    private String username;
+    @NotBlank private String username;
+    @NotBlank private String firstName;
+    @NotBlank private String lastName;
 
     @NotBlank
     @Email

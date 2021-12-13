@@ -3,6 +3,8 @@ package com.ag.trigger.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +32,6 @@ public class UserEntity extends PersonEntity {
     private String email;
 
     @Column(name = "telephone")
-    @NotEmpty
     private String telephone;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -39,12 +40,15 @@ public class UserEntity extends PersonEntity {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    public UserEntity() {}
+    public UserEntity(@NotBlank String username, @NotBlank @Email String email, @NotBlank String telephone, @NotBlank String firstName, @NotBlank String lastName, String encode) {}
 
     public UserEntity(String username, String password, String email, String telephone) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.telephone = telephone;
+
     }
+
+    public UserEntity() {}
 }
