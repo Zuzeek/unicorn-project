@@ -31,17 +31,22 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired AuthenticationManager authenticationManager;
-    @Autowired UserRepository userRepository;
-    @Autowired RoleRepository roleRepository;
-    @Autowired PasswordEncoder encoder;
-    @Autowired JwtUtils jwtUtils;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
+    @Autowired
+    PasswordEncoder encoder;
+    @Autowired
+    JwtUtils jwtUtils;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsername(), loginRequest.getPassword()));
+                        loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);

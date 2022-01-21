@@ -18,6 +18,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     /**
      * HttpServletResponse.SC_UNAUTHORIZED is the 401 Status code.
      * It indicates that the request requires HTTP authentication.
+     *
      * @param request
      * @param response
      * @param authException
@@ -35,21 +36,20 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 /**
  * If want to customize the response data, just use an ObjectMapper like following code:
  *
- * @Override
- * public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
- *     throws IOException, ServletException {
- *   logger.error("Unauthorized error: {}", authException.getMessage());
- *
- *   response.setContentType(MediaType.APPLICATION_JSON_VALUE);
- *   response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
- *
- *   final Map<String, Object> body = new HashMap<>();
- *   body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
- *   body.put("error", "Unauthorized");
- *   body.put("message", authException.getMessage());
- *   body.put("path", request.getServletPath());
- *
- *   final ObjectMapper mapper = new ObjectMapper();
- *   mapper.writeValue(response.getOutputStream(), body);
+ * @Override public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+ * throws IOException, ServletException {
+ * logger.error("Unauthorized error: {}", authException.getMessage());
+ * <p>
+ * response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+ * response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+ * <p>
+ * final Map<String, Object> body = new HashMap<>();
+ * body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+ * body.put("error", "Unauthorized");
+ * body.put("message", authException.getMessage());
+ * body.put("path", request.getServletPath());
+ * <p>
+ * final ObjectMapper mapper = new ObjectMapper();
+ * mapper.writeValue(response.getOutputStream(), body);
  * }
  */

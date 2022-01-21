@@ -26,7 +26,7 @@ public class UserEntity extends PersonEntity {
     @Column(name = "password")
     @NotEmpty
     private String password;
-    
+
     @Column(name = "email")
     @NotEmpty
     private String email;
@@ -36,11 +36,12 @@ public class UserEntity extends PersonEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
-                joinColumns = @JoinColumn(name = "user_id"),
-                inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    public UserEntity(@NotBlank String username, @NotBlank @Email String email, @NotBlank String telephone, @NotBlank String firstName, @NotBlank String lastName, String encode) {}
+    public UserEntity(@NotBlank String username, @NotBlank @Email String email, @NotBlank String telephone, @NotBlank String firstName, @NotBlank String lastName, String encode) {
+    }
 
     public UserEntity(String username, String password, String email, String telephone) {
         this.username = username;
@@ -50,5 +51,6 @@ public class UserEntity extends PersonEntity {
 
     }
 
-    public UserEntity() {}
+    public UserEntity() {
+    }
 }

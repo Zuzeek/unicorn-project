@@ -13,7 +13,8 @@ public class RoleEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ERole roleName;
 
-    public RoleEntity() {}
+    public RoleEntity() {
+    }
 
     public RoleEntity(ERole roleName) {
         this.roleName = roleName;
